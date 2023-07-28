@@ -1,0 +1,853 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20231.23.0511.1508                               -->
+<workbook original-version='18.1' source-build='2023.1.2 (20231.23.0511.1508)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='sample+ (购物篮)' inline='true' name='federated.16lkqf0134hypy19m09zi1ehs6ef' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='购物篮' name='msaccess.04r10dh0vywdfk11b2y9t1ucabw1'>
+            <connection authentication='no' class='msaccess' driver='' filename='D:/从c盘转移的桌面/18、数据分析(完成版）/第1阶段/Tableau/BI基础/BI基础/d2/资料/数据/购物篮/购物篮.mdb' mdwpath='' server='' username='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation join='inner' type='join'>
+          <clause type='join'>
+            <expression op='AND'>
+              <expression op='='>
+                <expression op='[会员总数].[品牌1]' />
+                <expression op='[交叉会员个数].[品牌1]' />
+              </expression>
+              <expression op='='>
+                <expression op='[品牌2].[品牌2]' />
+                <expression op='[交叉会员个数].[品牌2]' />
+              </expression>
+            </expression>
+          </clause>
+          <relation join='inner' type='join'>
+            <clause type='join'>
+              <expression op='='>
+                <expression op='[销售流水副本].[品牌]' />
+                <expression op='[品牌2].[品牌2]' />
+              </expression>
+            </clause>
+            <relation join='inner' type='join'>
+              <clause type='join'>
+                <expression op='='>
+                  <expression op='[sample].[品牌]' />
+                  <expression op='[会员总数].[品牌1]' />
+                </expression>
+              </clause>
+              <relation join='inner' type='join'>
+                <clause type='join'>
+                  <expression op='&lt;&gt;'>
+                    <expression op='[sample].[会员ID]' />
+                    <expression op='[品牌1].[会员ID]' />
+                  </expression>
+                </clause>
+                <relation join='inner' type='join'>
+                  <clause type='join'>
+                    <expression op='AND'>
+                      <expression op='='>
+                        <expression op='[sample].[会员ID]' />
+                        <expression op='[销售流水副本].[会员ID]' />
+                      </expression>
+                      <expression op='&lt;&gt;'>
+                        <expression op='[sample].[品牌]' />
+                        <expression op='[销售流水副本].[品牌]' />
+                      </expression>
+                    </expression>
+                  </clause>
+                  <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='sample' table='[sample]' type='table' />
+                  <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='销售流水副本' table='[sample]' type='table' />
+                </relation>
+                <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌1' type='text'>select 0 as 会员ID, count(*) as 会员总数 from &#13;
+(select distinct 会员ID from sample) t</relation>
+              </relation>
+              <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='会员总数' type='text'>select 品牌 as 品牌1, count(会员ID) as 品牌1数量 from sample&#13;
+group by 品牌</relation>
+            </relation>
+            <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌2' type='text'>select 品牌 as 品牌2,count(会员ID) as 品牌2数量 from sample&#13;
+group by 品牌</relation>
+          </relation>
+          <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='交叉会员个数' type='text'><![CDATA[select 品牌1,品牌2,count(*) as 品牌1_品牌2 from
+(select t1.会员ID,t1.品牌 as 品牌1,t2.品牌 as 品牌2 from 
+sample t1 inner join sample t2 
+on t1.会员ID=t2.会员ID 
+where t1.品牌<<>>t2.品牌) t_cross
+group by 品牌1,品牌2]]></relation>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation join='inner' type='join'>
+          <clause type='join'>
+            <expression op='AND'>
+              <expression op='='>
+                <expression op='[会员总数].[品牌1]' />
+                <expression op='[交叉会员个数].[品牌1]' />
+              </expression>
+              <expression op='='>
+                <expression op='[品牌2].[品牌2]' />
+                <expression op='[交叉会员个数].[品牌2]' />
+              </expression>
+            </expression>
+          </clause>
+          <relation join='inner' type='join'>
+            <clause type='join'>
+              <expression op='='>
+                <expression op='[销售流水副本].[品牌]' />
+                <expression op='[品牌2].[品牌2]' />
+              </expression>
+            </clause>
+            <relation join='inner' type='join'>
+              <clause type='join'>
+                <expression op='='>
+                  <expression op='[sample].[品牌]' />
+                  <expression op='[会员总数].[品牌1]' />
+                </expression>
+              </clause>
+              <relation join='inner' type='join'>
+                <clause type='join'>
+                  <expression op='&lt;&gt;'>
+                    <expression op='[sample].[会员ID]' />
+                    <expression op='[品牌1].[会员ID]' />
+                  </expression>
+                </clause>
+                <relation join='inner' type='join'>
+                  <clause type='join'>
+                    <expression op='AND'>
+                      <expression op='='>
+                        <expression op='[sample].[会员ID]' />
+                        <expression op='[销售流水副本].[会员ID]' />
+                      </expression>
+                      <expression op='&lt;&gt;'>
+                        <expression op='[sample].[品牌]' />
+                        <expression op='[销售流水副本].[品牌]' />
+                      </expression>
+                    </expression>
+                  </clause>
+                  <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='sample' table='[sample]' type='table' />
+                  <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='销售流水副本' table='[sample]' type='table' />
+                </relation>
+                <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌1' type='text'>select 0 as 会员ID, count(*) as 会员总数 from &#13;
+(select distinct 会员ID from sample) t</relation>
+              </relation>
+              <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='会员总数' type='text'>select 品牌 as 品牌1, count(会员ID) as 品牌1数量 from sample&#13;
+group by 品牌</relation>
+            </relation>
+            <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌2' type='text'>select 品牌 as 品牌2,count(会员ID) as 品牌2数量 from sample&#13;
+group by 品牌</relation>
+          </relation>
+          <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='交叉会员个数' type='text'><![CDATA[select 品牌1,品牌2,count(*) as 品牌1_品牌2 from
+(select t1.会员ID,t1.品牌 as 品牌1,t2.品牌 as 品牌2 from 
+sample t1 inner join sample t2 
+on t1.会员ID=t2.会员ID 
+where t1.品牌<<>>t2.品牌) t_cross
+group by 品牌1,品牌2]]></relation>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <cols>
+          <map key='[会员ID (sample1)]' value='[销售流水副本].[会员ID]' />
+          <map key='[会员ID (自定义 SQL 查询)]' value='[品牌1].[会员ID]' />
+          <map key='[会员ID]' value='[sample].[会员ID]' />
+          <map key='[会员总数]' value='[品牌1].[会员总数]' />
+          <map key='[品牌 (sample1)]' value='[销售流水副本].[品牌]' />
+          <map key='[品牌1 (自定义 SQL 查询)]' value='[交叉会员个数].[品牌1]' />
+          <map key='[品牌1]' value='[会员总数].[品牌1]' />
+          <map key='[品牌1_品牌2]' value='[交叉会员个数].[品牌1_品牌2]' />
+          <map key='[品牌1数量]' value='[会员总数].[品牌1数量]' />
+          <map key='[品牌2 (自定义 SQL 查询)]' value='[交叉会员个数].[品牌2]' />
+          <map key='[品牌2]' value='[品牌2].[品牌2]' />
+          <map key='[品牌2数量]' value='[品牌2].[品牌2数量]' />
+          <map key='[品牌]' value='[sample].[品牌]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>会员ID</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[会员ID]</local-name>
+            <parent-name>[sample]</parent-name>
+            <remote-alias>会员ID</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌]</local-name>
+            <parent-name>[sample]</parent-name>
+            <remote-alias>品牌</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>会员ID</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[会员ID (sample1)]</local-name>
+            <parent-name>[销售流水副本]</parent-name>
+            <remote-alias>会员ID</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌 (sample1)]</local-name>
+            <parent-name>[销售流水副本]</parent-name>
+            <remote-alias>品牌</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>会员ID</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[会员ID (自定义 SQL 查询)]</local-name>
+            <parent-name>[品牌1]</parent-name>
+            <remote-alias>会员ID</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>会员总数</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[会员总数]</local-name>
+            <parent-name>[品牌1]</parent-name>
+            <remote-alias>会员总数</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌1</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌1]</local-name>
+            <parent-name>[会员总数]</parent-name>
+            <remote-alias>品牌1</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌1数量</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[品牌1数量]</local-name>
+            <parent-name>[会员总数]</parent-name>
+            <remote-alias>品牌1数量</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌2</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌2]</local-name>
+            <parent-name>[品牌2]</parent-name>
+            <remote-alias>品牌2</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌2数量</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[品牌2数量]</local-name>
+            <parent-name>[品牌2]</parent-name>
+            <remote-alias>品牌2数量</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌1</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌1 (自定义 SQL 查询)]</local-name>
+            <parent-name>[交叉会员个数]</parent-name>
+            <remote-alias>品牌1</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌2</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[品牌2 (自定义 SQL 查询)]</local-name>
+            <parent-name>[交叉会员个数]</parent-name>
+            <remote-alias>品牌2</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>255</width>
+            <contains-null>true</contains-null>
+            <collation flag='1' name='LEN_RUS_S2_WO' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;WSTR&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>品牌1_品牌2</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[品牌1_品牌2]</local-name>
+            <parent-name>[交叉会员个数]</parent-name>
+            <remote-alias>品牌1_品牌2</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;I4&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='行索引' datatype='integer' name='[Calculation_992762273316892672]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='INDEX()'>
+          <table-calc ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌2 (自定义 SQL 查询)]' ordering-type='Field' />
+        </calculation>
+      </column>
+      <column caption='列索引' datatype='integer' name='[Calculation_992762273317117953]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='INDEX()'>
+          <table-calc ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌1 (自定义 SQL 查询)]' ordering-type='Field' />
+        </calculation>
+      </column>
+      <column caption='行列索引' datatype='integer' name='[Calculation_992762273317310466]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IIF([Calculation_992762273316892672]&gt;[Calculation_992762273317117953],1,0)'>
+          <table-calc ordering-type='Rows' />
+        </calculation>
+      </column>
+      <column caption='LIFT' datatype='real' name='[Calculation_992762273318502403]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='[品牌1_品牌2]/(([品牌1数量]/[会员总数])*[品牌2数量])' />
+      </column>
+      <_.fcp.ObjectModelTableType.true...column caption='sample' datatype='table' name='[__tableau_internal_object_id__].[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]' role='measure' type='quantitative' />
+      <column datatype='integer' hidden='true' name='[会员ID (sample1)]' role='dimension' type='ordinal' />
+      <column datatype='integer' hidden='true' name='[会员ID (自定义 SQL 查询)]' role='measure' type='quantitative' />
+      <column caption='会员id' datatype='integer' name='[会员ID]' role='dimension' type='ordinal' />
+      <column caption='品牌 2' datatype='string' name='[品牌 (sample1)]' role='dimension' type='nominal' />
+      <column datatype='string' name='[品牌1 (自定义 SQL 查询)]' role='dimension' type='nominal' />
+      <column datatype='string' name='[品牌2 (自定义 SQL 查询)]' role='dimension' type='nominal' />
+      <column caption='品牌1' datatype='string' hidden='true' name='[品牌]' role='dimension' type='nominal' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;美国&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='sample' id='sample_C47C8B1D48174D16AC7F7888F4CE4B0C'>
+            <properties context=''>
+              <relation join='inner' type='join'>
+                <clause type='join'>
+                  <expression op='AND'>
+                    <expression op='='>
+                      <expression op='[会员总数].[品牌1]' />
+                      <expression op='[交叉会员个数].[品牌1]' />
+                    </expression>
+                    <expression op='='>
+                      <expression op='[品牌2].[品牌2]' />
+                      <expression op='[交叉会员个数].[品牌2]' />
+                    </expression>
+                  </expression>
+                </clause>
+                <relation join='inner' type='join'>
+                  <clause type='join'>
+                    <expression op='='>
+                      <expression op='[销售流水副本].[品牌]' />
+                      <expression op='[品牌2].[品牌2]' />
+                    </expression>
+                  </clause>
+                  <relation join='inner' type='join'>
+                    <clause type='join'>
+                      <expression op='='>
+                        <expression op='[sample].[品牌]' />
+                        <expression op='[会员总数].[品牌1]' />
+                      </expression>
+                    </clause>
+                    <relation join='inner' type='join'>
+                      <clause type='join'>
+                        <expression op='&lt;&gt;'>
+                          <expression op='[sample].[会员ID]' />
+                          <expression op='[品牌1].[会员ID]' />
+                        </expression>
+                      </clause>
+                      <relation join='inner' type='join'>
+                        <clause type='join'>
+                          <expression op='AND'>
+                            <expression op='='>
+                              <expression op='[sample].[会员ID]' />
+                              <expression op='[销售流水副本].[会员ID]' />
+                            </expression>
+                            <expression op='&lt;&gt;'>
+                              <expression op='[sample].[品牌]' />
+                              <expression op='[销售流水副本].[品牌]' />
+                            </expression>
+                          </expression>
+                        </clause>
+                        <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='sample' table='[sample]' type='table' />
+                        <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='销售流水副本' table='[sample]' type='table' />
+                      </relation>
+                      <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌1' type='text'>select 0 as 会员ID, count(*) as 会员总数 from &#13;
+(select distinct 会员ID from sample) t</relation>
+                    </relation>
+                    <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='会员总数' type='text'>select 品牌 as 品牌1, count(会员ID) as 品牌1数量 from sample&#13;
+group by 品牌</relation>
+                  </relation>
+                  <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='品牌2' type='text'>select 品牌 as 品牌2,count(会员ID) as 品牌2数量 from sample&#13;
+group by 品牌</relation>
+                </relation>
+                <relation connection='msaccess.04r10dh0vywdfk11b2y9t1ucabw1' name='交叉会员个数' type='text'><![CDATA[select 品牌1,品牌2,count(*) as 品牌1_品牌2 from
+(select t1.会员ID,t1.品牌 as 品牌1,t2.品牌 as 品牌2 from 
+sample t1 inner join sample t2 
+on t1.会员ID=t2.会员ID 
+where t1.品牌<<>>t2.品牌) t_cross
+group by 品牌1,品牌2]]></relation>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='工作表 1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='sample+ (购物篮)' name='federated.16lkqf0134hypy19m09zi1ehs6ef' />
+          </datasources>
+          <datasource-dependencies datasource='federated.16lkqf0134hypy19m09zi1ehs6ef'>
+            <column caption='行索引' datatype='integer' name='[Calculation_992762273316892672]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='INDEX()'>
+                <table-calc ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌2 (自定义 SQL 查询)]' ordering-type='Field' />
+              </calculation>
+            </column>
+            <column caption='列索引' datatype='integer' name='[Calculation_992762273317117953]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='INDEX()'>
+                <table-calc ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌1 (自定义 SQL 查询)]' ordering-type='Field' />
+              </calculation>
+            </column>
+            <column caption='行列索引' datatype='integer' name='[Calculation_992762273317310466]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IIF([Calculation_992762273316892672]&gt;[Calculation_992762273317117953],1,0)'>
+                <table-calc ordering-type='Rows' />
+              </calculation>
+            </column>
+            <column caption='LIFT' datatype='real' name='[Calculation_992762273318502403]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[品牌1_品牌2]/(([品牌1数量]/[会员总数])*[品牌2数量])' />
+            </column>
+            <_.fcp.ObjectModelTableType.false...column caption='sample' datatype='integer' name='[__tableau_internal_object_id__].[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]' role='measure' type='quantitative' />
+            <column-instance column='[__tableau_internal_object_id__].[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' pivot='key' type='quantitative' />
+            <_.fcp.ObjectModelTableType.true...column caption='sample' datatype='table' name='[__tableau_internal_object_id__].[sample_C47C8B1D48174D16AC7F7888F4CE4B0C]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_992762273318502403]' derivation='None' name='[none:Calculation_992762273318502403:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[品牌1 (自定义 SQL 查询)]' derivation='None' name='[none:品牌1 (自定义 SQL 查询):nk]' pivot='key' type='nominal' />
+            <column-instance column='[品牌2 (自定义 SQL 查询)]' derivation='None' name='[none:品牌2 (自定义 SQL 查询):nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_992762273317310466]' derivation='User' name='[usr:Calculation_992762273317310466:qk]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Rows' />
+              <table-calc field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[Calculation_992762273316892672]' ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌2 (自定义 SQL 查询)]' ordering-type='Field' />
+              <table-calc field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[Calculation_992762273317117953]' ordering-field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[品牌1 (自定义 SQL 查询)]' ordering-type='Field' />
+            </column-instance>
+            <column datatype='integer' name='[会员总数]' role='measure' type='quantitative' />
+            <column datatype='string' name='[品牌1 (自定义 SQL 查询)]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[品牌1_品牌2]' role='measure' type='quantitative' />
+            <column datatype='integer' name='[品牌1数量]' role='measure' type='quantitative' />
+            <column datatype='string' name='[品牌2 (自定义 SQL 查询)]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[品牌2数量]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='quantitative' column='[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:Calculation_992762273318502403:qk]' included-values='in-range'>
+            <min>3.0</min>
+            <max>949.72222222222217</max>
+          </filter>
+          <filter class='quantitative' column='[federated.16lkqf0134hypy19m09zi1ehs6ef].[usr:Calculation_992762273317310466:qk]' included-values='in-range'>
+            <min>1</min>
+            <max>1</max>
+          </filter>
+          <slices>
+            <column>[federated.16lkqf0134hypy19m09zi1ehs6ef].[usr:Calculation_992762273317310466:qk]</column>
+            <column>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:Calculation_992762273318502403:qk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='mark'>
+            <encoding attr='size-bar' field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' field-type='quantitative' max-size='1' min-size='0.005' type='centersize' />
+            <encoding attr='color' field='[federated.16lkqf0134hypy19m09zi1ehs6ef].[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' palette='red_green_diverging_10_0' reverse='true' symmetric='false' type='interpolated' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Square' />
+            <encodings>
+              <color column='[federated.16lkqf0134hypy19m09zi1ehs6ef].[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' />
+              <text column='[federated.16lkqf0134hypy19m09zi1ehs6ef].[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='has-stroke' value='false' />
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-line-first' value='true' />
+                <format attr='mark-labels-line-last' value='true' />
+                <format attr='mark-labels-range-min' value='true' />
+                <format attr='mark-labels-range-max' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+                <format attr='mark-labels-range-scope' value='pane' />
+                <format attr='mark-labels-range-field' value='' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:品牌1 (自定义 SQL 查询):nk]</rows>
+        <cols>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:品牌2 (自定义 SQL 查询):nk]</cols>
+      </table>
+      <simple-id uuid='{AFBF6410-941B-44E5-9D46-7D426EF02819}' />
+    </worksheet>
+  </worksheets>
+  <windows saved-dpi-scale-factor='1.25' source-height='37'>
+    <window class='worksheet' maximized='true' name='工作表 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.16lkqf0134hypy19m09zi1ehs6ef].[__tableau_internal_object_id__].[cnt:sample_C47C8B1D48174D16AC7F7888F4CE4B0C:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <viewpoint>
+        <highlight>
+          <color-one-way>
+            <field>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:Calculation_992762273318502403:qk]</field>
+            <field>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:品牌1 (自定义 SQL 查询):nk]</field>
+            <field>[federated.16lkqf0134hypy19m09zi1ehs6ef].[none:品牌2 (自定义 SQL 查询):nk]</field>
+          </color-one-way>
+        </highlight>
+      </viewpoint>
+      <simple-id uuid='{C5229DA7-5022-4B97-B963-9F91A2FD07BA}' />
+    </window>
+  </windows>
+  <thumbnails>
+    <thumbnail height='192' name='工作表 1' width='192'>
+      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
+    </thumbnail>
+  </thumbnails>
+</workbook>
